@@ -1,0 +1,20 @@
+## Version 2022/08/06
+# Fail2Ban jail configuration for nginx-limit-req
+
+# To use 'nginx-limit-req' jail you should have `ngx_http_limit_req_module`
+# and define `limit_req` and `limit_req_zone` as described in nginx documentation
+# http://nginx.org/en/docs/http/ngx_http_limit_req_module.html
+# or for example see in 'config/filter.d/nginx-limit-req.conf'
+
+[nginx-limit-req]
+enabled  = true
+port     = 8080
+filter   = nginx-limit-req
+logpath  = /remotelogs/nginx/error.log
+maxretry = 5
+findtime = 600
+bantime  = 1h
+
+# On définit l'action en dur pour éviter l'erreur d'interpolation
+# On utilise iptables-multiport sur la chaîne DOCKER-USER
+action = iptables-allports[name=nginx-limit, chain=DOCKER-USER]
