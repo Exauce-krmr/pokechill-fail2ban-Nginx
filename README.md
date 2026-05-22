@@ -16,57 +16,28 @@ Cependant, comparé à Fail 2 Ban, le blocage ne dure pas longtemps (moins d’u
 
 ## Architecture du projet
 
- pokechill-fail2ban-Nginx
-├──  app
-│   ├──  font
-│   │   ├──  Megrim.ttf
-│   │   └──  WinkySans.ttf
-│   ├──  img
-│   │   ├──  bg
-│   │   ├──  decor
-│   │   ├──  icons
-│   │   ├──  items
-│   │   ├──  pkmn
-│   │   ├──  resources
-│   │   ├──  ribbons
-│   │   └──  trainers
-│   ├──  index.html
-│   ├──  scripts
-│   │   ├──  areasDictionary.js
-│   │   ├──  decor.js
-│   │   ├──  dictionarySearch.js
-│   │   ├──  explore.js
-│   │   ├──  fuse.js
-│   │   ├──  'Fuse.js License.txt'
-│   │   ├──  HackTimer.js
-│   │   ├──  'Hacktimer License.txt'
-│   │   ├──  itemDictionary.js
-│   │   ├──  moveDictionary.js
-│   │   ├──  pkmnDictionary.js
-│   │   ├──  PR
-│   │   ├──  save.js
-│   │   ├──  script.js
-│   │   ├──  shop.js
-│   │   ├──  teamPreviews.js
-│   │   ├──  teams.js
-│   │   └──  tooltip.js
-│   └──  styles.css
-├──  docker-compose.yml
-├──  docs
-│   ├──  img
-│   ├──  setup_fail2ban.md
-│   └──  setup_nginx_rateLimiting.md
-├──  fail2ban
-│   └──  config
-│       ├──  fail2ban
-│       └──  log
-├──  nginx
-│   ├──  Dockerfile
-│   ├──  logs
-│   │   ├──  access.log
-│   │   └──  error.log
-│   └── 󱁻 nginx.conf
-└── 󰂺 README.md
+```text
+📁 pokechill-fail2ban-Nginx
+├── 📁 app
+│   ├── 📁 font
+│   ├── 📁 img
+│   ├── 🌐 index.html
+│   ├── 📁 scripts
+│   └── 🎨 styles.css
+├── 📁 docs
+│   ├── 📁 img
+│   ├── 📝 setup_fail2ban.md
+│   └── 📝 setup_nginx_rateLimiting.md
+├── 📁 fail2ban
+│   ├── ⚙️ config
+│   └── 📂 log
+├── 📁 nginx
+│   ├── 🐳 Dockerfile
+│   ├── 📂 logs
+│   └── ⚙️ nginx.conf
+├── 🐳 docker-compose.yml
+└── 📖 README.md
+```
 
 ## Comment résaliser ce projet ?
 
@@ -94,7 +65,7 @@ Toujour dans `pokechill-fail2ban-Nginx` (votre répertoire principale)
 
 Créer les dossiers pour la conf + les logs Nginx et fail2ban
 ```bash
-  mkdir -p nginx/logs fail2ban
+  mkdir -p nginx/logs fail2ban/config fail2ban/log
 ```
 
 ### Configuration de Nginx
@@ -106,14 +77,14 @@ Nous allons créer le fichier de configuration de nginx avec la fonctionalite de
 ``` 
 
 Ensuite éditer `nginx.conf` avec votre éditeur préférer. 
-_**Le contenue du fichier [ICI](github.com/Exauce-krmr/pokechill-fail2ban-Nginx/blob/main/nginx/nginx.conf)**_
+_**Le contenue du fichier [ICI](nginx/nginx.conf)**_
 
 Nous allons aussi creer un Dockerfile pour personaliser l'image de Nginx
 
 ```bash
     touch Dockerfile
 ``` 
-_**Le contenue du fichier [ICI](github.com/Exauce-krmr/pokechill-fail2ban-Nginx/blob/main/nginx/nginx.conf)**_
+_**Le contenue du fichier [ICI](nginx/Dockerfile)**_
 
 ### Création du docker-compose.yml
 
@@ -122,20 +93,58 @@ Creer un docker-compose.yml à la racine du projet (pokechill-fail2ban-Nginx)
 ```bash
     touch docker-compose.yml
 ``` 
-_**Le contenue du fichier [ICI](github.com/Exauce-krmr/pokechill-fail2ban-Nginx/blob/main/nginx/nginx.conf)**_
-
+_**Le contenue du fichier [ICI](docker-compose.yml)**_
 Vous pouvez desormais executer le projet
 
-```
+```bash
     docker compose up 
 ```
 Si sa ne marche pas ragarder [ce fichier](). Vous y trouverer des potentiel solution à ce problème
 
 En faisant cela du contenu devrait apparaitre dans `fail2ban`
 
-Dans le dossier `fail2ban` vous allez trouver un dossier se nommant egalement `fail2ban` et un s'appelant `log`
+Dans le dossier `fail2ban` vous allez trouver un dossier `config` et un s'appelant `log`
 
-La configuration ce trouve dans `fail2ban`. Allez dedans.
+La configuration ce trouve dans `config`. Allez dedans.
+
+Nous allons aller dans le dossier `jail.d`. Il contient tout la configuration par default.
+
+_**INFO :** Tout modification a l'interieur des fichier par defaut se trouvera reinitialiser au redemarrage_
+
+```bash 
+    cd fail2ban/config/jail.d
+```
+
+Dedans nous allons ajouter notre `nginx-limit-req.local`
+```bash
+    touch nginx-limit-req.local
+```
+_**Le contenue du fichier [ICI](fail2ban/config/jail.d/nginx-limit-req.local)**_
+
+Un fois le fichier creer : 
+
+Reloader la configuraton pour l'appliquer _(Attention le projet de être lancé !)_:
+
+```bash
+  docker exec -it fail2ban fail2ban-client reload
+```
+
+Regader si la config est appliqueé
+```bash 
+    docker exec -it fail2ban fail2ban-client status nginx-limit-req
+```
+
+### Comment savoir si tout marche ?
+
+Pour savoir si votre projet marche vous pouvez le tester avec les moyens si dessous :
+
+#### Nginx rate Limiter 
+
+
+
+▌ 572     docker exec -it fail2ban fail2ban-client reload                                                                                      │
+▌ 581     docker exec -it fail2ban fail2ban-client status nginx-limit-req                                                                      │
+▌ 582     docker exec -it fail2ban fail2ban-client unban --all
 
 
 ## Resultat Final
