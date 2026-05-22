@@ -23,6 +23,7 @@ services:
       - PGID=1000
       - TZ=Europe/Paris
     volumes:
-      - ./fail2ban:/config # Toute la config (jails, filters) est ici
+      - ./fail2ban/config:/config/fail2ban # Toute la config (jails, filters) est ici
+      - ./fail2ban/log:/config/log/fail2ban
       - ./nginx/logs:/remotelogs/nginx:ro # On monte les logs Nginx ici
     restart: unless-stopped
