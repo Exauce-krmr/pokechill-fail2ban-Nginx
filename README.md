@@ -1,5 +1,5 @@
 # Screenshots
-<img width="1075" height="935" alt="screenshot-2026-05-22_08-38-23" src="https://github.com/user-attachments/assets/ba1004e4-78b2-47ee-b5ae-7272da4c0b6d" />
+<img width="923" height="933" alt="screenshot-2026-05-22_09-28-23" src="https://github.com/user-attachments/assets/8ed31089-9fe7-46bf-95b0-be4a8fd8b26a" />
 
 # Pokechill-Fail2ban-Nginx
 
@@ -20,8 +20,7 @@ Cependant, comparé à Fail 2 Ban, le blocage ne dure pas longtemps (moins d’u
 ## Cette section sera faite par celui qui a commiter cette modification.
 
 ## Resultat Final
-
-# TODO: re Image du resultat site ICI
+<img width="1075" height="935" alt="screenshot-2026-05-22_08-38-23" src="https://github.com/user-attachments/assets/ba1004e4-78b2-47ee-b5ae-7272da4c0b6d" />
 
 # Ban Rate limiting example:
 <img width="1059" height="985" alt="screenshot-2026-05-22_08-44-43" src="https://github.com/user-attachments/assets/2f571eaa-aeef-46b6-821a-24e7d9f1d41d" />
