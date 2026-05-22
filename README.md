@@ -4,7 +4,16 @@
 # Pokechill-Fail2ban-Nginx
 
 # C'est quoi ?
-## TODO: Mettre description du projet ICI
+Notre projet consiste à reprendre un projet GitHub (ici, PokeChill) et à y intégrer Fail 2 Ban ainsi que le rate limiting de Nginx.
+
+## Fail 2 Ban
+Fail 2 Ban est un outil de sécurité qui analyse les logs afin de détecter des comportements suspects (par exemple: trop de requêtes dans un court laps de temps).
+S’il en repère un, il bannit l’adresse IP ayant un comportement suspect pendant une durée déterminée (dans notre cas, 1 heure).
+
+## Nginx Rate Limiting
+Le rate limiting de Nginx est également un outil de sécurité.
+Il limite le nombre de requêtes d’un utilisateur et, si le quota de requêtes est dépassé, les requêtes de cette adresse IP ne reçoivent plus de réponse.
+Cependant, comparé à Fail 2 Ban, le blocage ne dure pas longtemps (moins d’une seconde).
 
 # Comment résaliser ce projet ?
 
