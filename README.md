@@ -3,6 +3,29 @@
 <img width="1075" height="935" src="docs/img/screenshotGame1.png" />
 <figcaption>Image du jeu en cours de fonctionnement sur l'accueil</figcaption>
 
+---
+
+## Table des matières
+
+- [C'est quoi ?](#cest-quoi-)
+    - [Fail2Ban](#fail2ban)
+    - [Nginx Rate Limiting](#nginx-rate-limiting)
+- [Architecture du projet](#architecture-du-projet)
+- [Comment réaliser ce projet ?](#comment-réaliser-ce-projet-)
+    - [Prérequis](#prérequis)
+    - [Mise en place de l'espace de travail](#mise-en-place-de-lespace-de-travail)
+    - [Configuration de Nginx](#configuration-de-nginx)
+    - [Création du docker-compose.yml](#création-du-docker-composeyml)
+    - [Comment savoir si tout fonctionne ?](#comment-savoir-si-tout-fonctionne-)
+        - [Nginx Rate Limiter](#nginx-rate-limiter)
+        - [Fail2Ban](#fail2ban-1)
+- [Résultat Final](#résultat-final)
+    - [Ban Rate Limiting](#ban-rate-limiting)
+    - [Ban Fail2Ban](#ban-fail2ban)
+    - [Containers](#containers)
+
+---
+
 ## C'est quoi ?
 
 Notre projet consiste à reprendre un projet GitHub (ici, PokeChill) et à y intégrer Fail2Ban ainsi que le rate limiting de Nginx.
@@ -158,6 +181,44 @@ docker exec -it fail2ban fail2ban-client status nginx-limit-req
 Pour savoir si votre projet fonctionne, vous pouvez le tester avec les moyens ci-dessous :
 
 #### Nginx Rate Limiter
+
+Rechargez la page plusieurs fois rapidement dans votre navigateur. Vous obtiendrez un écran **503 - Temporarily Banned**.
+
+#### Fail2Ban
+
+> **⚠️ IMPORTANT :** Tester Fail2Ban en local ne sert à rien, car Fail2Ban ne bannit pas `localhost`. Il est nécessaire de tester depuis une autre machine ou via une adresse IP externe.
+
+Pour simuler des connexions depuis l'extérieur, nous utilisons `ufw` (Uncomplicated Firewall).
+
+Si `ufw` n'est pas installé sur votre machine, installez-le d'abord :
+
+```bash
+sudo apt install ufw
+```
+
+Une fois installé, voici les commandes utiles :
+
+| Commande | Description |
+|---|---|
+| `sudo ufw allow 8080/tcp` | Autorise les connexions entrantes sur le port 8080 |
+| `ufw status` | Affiche l'état et les règles actives de ufw |
+| `sudo ufw delete allow 8080/tcp` | Supprime la règle autorisant le port 8080 |
+
+Pour recharger la configuration de Fail2Ban, vérifier son statut ou débannir des adresses IP :
+
+```bash
+# Recharger la configuration
+docker exec -it fail2ban fail2ban-client reload
+
+# Vérifier le statut du jail nginx-limit-req
+docker exec -it fail2ban fail2ban-client status nginx-limit-req
+
+# Débannir une adresse IP spécifique
+docker exec -it fail2ban fail2ban-client set nginx-limit-req unbanip <ADRESSE_IP>
+
+# Débannir toutes les adresses IP
+docker exec -it fail2ban fail2ban-client unban --all
+```
 
 ---
 
