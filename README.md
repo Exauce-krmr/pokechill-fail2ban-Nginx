@@ -1,6 +1,6 @@
 # Pokechill-Fail2ban-Nginx
 <img width="1075" height="935" src="docs/img/screenshotGame1.png" />
-<figcaption>Image du jeu en cours de fonctionnement</figcaption>
+<figcaption>Image du jeu en cours de fonctionnement sur l'accueil</figcaption>
 
 ## C'est quoi ?
 Notre projet consiste à reprendre un projet GitHub (ici, PokeChill) et à y intégrer Fail 2 Ban ainsi que le rate limiting de Nginx.
@@ -140,7 +140,7 @@ La configuration ce trouve dans `fail2ban`. Allez dedans.
 
 ## Resultat Final
 <img width="1075" height="935" src="docs/img/screenshotGame2.png" />
-<figcaption>Image du jeu en cours de fonctionnement</figcaption>
+<figcaption>Image du jeu en cours de fonctionnement sur la page Travel</figcaption>
 
 ### Ban Rate limiting:
 <img width="1059" height="985" src="docs/img/banRateLimiting.png" />
