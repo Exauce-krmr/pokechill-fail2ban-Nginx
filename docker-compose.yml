@@ -7,7 +7,7 @@ services:
         - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
         - ./app:/usr/share/nginx/html
       ports:
-        - "8080:80"
+        - 8080:80
       environment:
         - NGINX_PORT=80
 
@@ -17,12 +17,12 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    network_mode: host # Indispensable pour bannir sur l'hôte
+    network_mode: host # Accorde les droit sur le reseau (lui permet de modifier les régles firewall pour ban ip)
     environment:
-      - PUID=1000 # Ton ID utilisateur (tape 'id' dans ton terminal pour vérifier)
+      - PUID=1000
       - PGID=1000
       - TZ=Europe/Paris
     volumes:
-      - ./fail2ban/config:/config # Toute la config (jails, filters) est ici
+      - ./fail2ban:/config # Toute la config (jails, filters) est ici
       - ./nginx/logs:/remotelogs/nginx:ro # On monte les logs Nginx ici
     restart: unless-stopped
