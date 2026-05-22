@@ -1,4 +1,5 @@
 <img width="1075" height="935" alt="screenshot-2026-05-22_08-38-23" src="https://github.com/user-attachments/assets/ba1004e4-78b2-47ee-b5ae-7272da4c0b6d" />
+*Image du jeu en cours de fonctionnement*
 
 # Pokechill-Fail2ban-Nginx
 
@@ -140,12 +141,16 @@ La configuration ce trouve dans `fail2ban`. Allez dedans.
 
 ## Resultat Final
 <img width="1075" height="935" alt="screenshot-2026-05-22_08-38-23" src="https://github.com/user-attachments/assets/ba1004e4-78b2-47ee-b5ae-7272da4c0b6d" />
+*Image du jeu en cours de fonctionnement*
 
 ### Ban Rate limiting:
 <img width="1059" height="985" alt="screenshot-2026-05-22_08-44-43" src="https://github.com/user-attachments/assets/2f571eaa-aeef-46b6-821a-24e7d9f1d41d" />
+*Image du navigateur après le bannissement par le rate limiting de Nginx*
 
 ### Ban Fail2Ban:
 <img width="928" height="647" alt="screenshot-2026-05-22_09-20-16" src="https://github.com/user-attachments/assets/73737e75-ba51-469d-bcde-70bed781dcb9" />
+*Image du navigateur après le bannissement par Fail2Ban*
 
 ### Containers
 <img width="1198" height="85" alt="screenshot-2026-05-22_08-36-20" src="https://github.com/user-attachments/assets/1fca5a27-5b9b-4524-9a39-b5d2a747e9b6" />
+*Image des conteneurs en cours d’exécution*
