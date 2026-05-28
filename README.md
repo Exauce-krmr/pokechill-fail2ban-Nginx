@@ -39,9 +39,35 @@ Concrètement, Fail2Ban lit les logs Nginx, repère les lignes d'erreur `limitin
 
 ### Nginx Rate Limiting
 
-Le rate limiting de Nginx est une fonctionnalité native qui **limite le nombre de requêtes** par IP sur une période donnée. Si une IP dépasse le quota, Nginx répond directement avec une erreur `503` — sans même transmettre la requête à l'application.
+Le Rate Limiting est une fonctionnalité native de Nginx permettant de limiter le nombre de requêtes qu’une adresse IP peut envoyer sur une période donnée.
 
-C'est un blocage immédiat mais **très court** (moins d'une seconde), contrairement au ban Fail2Ban qui dure 1 heure.
+Ce mécanisme agit directement au niveau logiciel (Nginx), avant même que les requêtes n’atteignent l’application backend.
+
+Fonctionnement
+
+Lorsqu’une IP dépasse le quota défini :
+
+Nginx interrompt immédiatement la requête ;
+la requête n’est pas transmise à l’application ;
+une réponse 503 Service Unavailable est retournée au client.
+
+Le blocage est très court et temporaire : il correspond uniquement au dépassement instantané du quota.
+
+Objectifs
+
+Le Rate Limiting permet principalement de :
+
+limiter les pics de trafic ;
+réduire les abus automatisés ;
+ralentir les attaques par brute force ;
+protéger les ressources applicatives ;
+empêcher qu’un client monopolise le serveur.
+Dans notre projet
+
+Dans notre infrastructure :
+
+Nginx surveille le nombre de requêtes par adresse IP ;
+lorsqu’une IP dépasse le seuil configuré, Nginx retourne une erreur 503 ;
 
 ### Différence entre les deux
 
