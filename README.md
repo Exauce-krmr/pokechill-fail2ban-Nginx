@@ -33,9 +33,25 @@ Ce projet n'a pas pour but de présenter PokeChill — c'est simplement un repos
 
 ### Fail2Ban
 
-Fail2Ban est un outil de sécurité qui tourne en arrière-plan et **analyse les logs** de vos services. Quand il détecte un comportement suspect (par exemple : trop de requêtes en peu de temps), il **bannit l'adresse IP** fautive via le firewall du système pour une durée déterminée (dans notre cas, 1 heure).
+Fail2Ban est un outil de sécurité fonctionnant en arrière-plan sur le serveur.
 
-Concrètement, Fail2Ban lit les logs Nginx, repère les lignes d'erreur `limiting requests`, et bloque l'IP via `iptables`.
+Contrairement au Rate Limiting de Nginx qui agit uniquement au niveau logiciel, Fail2Ban agit au niveau réseau / firewall via iptables ou nftables.
+
+Son rôle est d’analyser les logs système et de bannir automatiquement les adresses IP considérées comme suspectes.
+
+Fonctionnement général
+
+Fail2Ban repose sur trois éléments :
+
+des logs à surveiller ;
+des filtres permettant de détecter certains comportements ;
+des actions appliquées lorsqu’un seuil est dépassé.
+
+Lorsqu’un comportement correspond au filtre défini :
+
+l’événement est détecté dans les logs ;
+Fail2Ban compte le nombre d’occurrences ;
+si le seuil est atteint, l’adresse IP est bannie automatiquement via le firewall.
 
 ### Nginx Rate Limiting
 
